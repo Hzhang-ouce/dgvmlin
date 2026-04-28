@@ -1,0 +1,17 @@
+Variable,study,beta,sd_beta
+NPP,Hovenden et al. (2019),0.17,0.0326530612244898
+NPP,Norby et al. (2005),0.56,0.05612244897959184
+NPP,Walker et al. (2019),0.49,0.12244897959183673
+Cveg,Hungate et al. (2013),0.33,0.09693877551020408
+Cveg,Terrer et al. (2019),0.22,0.05612244897959184
+Cwood,Hattenschwiler et al. (1997),0.23,0.09237604307034013
+Cwood,Hattenschwiler et al. (1997),0.39,0.09237604307034013
+Cwood,Hattenschwiler et al. (1997),0.23,0.09237604307034013
+Cwood,Hattenschwiler et al. (1997),0.39,0.09237604307034013
+NPProot,Nie et al. (2013),0.56,0.4285714285714286
+NPProot,Nowak et al. (2004),0.92,0.4285714285714286
+NPProot,Nowak et al. (2004),0.18,0.4285714285714286
+Croot,Iversen et al. (2012),1.4,0.6122448979591837
+Croot,Evans et al. (2014),-0.31,0.5612244897959184
+NPProot,Baig et al. (2015),0.5,0.11224489795918367
+Croot,Nie et al. (2013),0.43,0.4285714285714286
