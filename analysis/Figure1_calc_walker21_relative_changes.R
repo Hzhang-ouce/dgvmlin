@@ -2,6 +2,10 @@
 # This script runs a quantitative comparison of individual relationships 
 # from a compilation of studies from the literature (Walker et al. 2021).
 
+# This file draws Figure 1
+
+# Made by Huanyuan Zhang-Zheng and Benjamin D Stocker
+
 ## Load stuff -------------------
 library(dplyr)
 library(lme4) 
@@ -192,7 +196,7 @@ out_croot_cveg <- purrr::map_dfr(
 )
 
 write_csv(out_croot_cveg, here::here("data/out_bootstrap_croot_cveg.csv"))
-# out_cveg_npp <- read_csv(here::here("data/out_bootstrap_croot_cveg.csv"))
+# out_croot_cveg <- read_csv(here::here("data/out_bootstrap_croot_cveg.csv"))
 
 
 

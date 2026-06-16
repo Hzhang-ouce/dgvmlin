@@ -2,7 +2,9 @@
 title: "Steady-state estimation"
 author: "Beni Stocker"
 date: "2026-04-09"
-output: html_document
+output:
+  word_document: default
+  html_document: default
 execute:
   warning: false
   message: false

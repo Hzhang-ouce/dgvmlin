@@ -30,11 +30,15 @@ source(here("R/regrid_df.R"))
 #setwd('F:/Oxford/Chapter_four/dgvmlin')
 # If you only want to draw figures, only do this: load(here("data/gdf_Trendyv11_202406.rda")) 
 ```
-## If you just want to reproduce our figures
+
+## To reproduce our figures
+
+Do this to reproduce figures in the paper
 
 Step 1: run library and source trunk
 Step 2: At regrid step, read in "data/gdf.rds"
 Step 3: Run **Model meta info** and **Plot relationships** then you are free to jump to other figures drawing sections
+Step 4: [Optional] At chunks about JULES, it is for supplementary figures only, you will get an error here, you will need to rerun codes around Line 370 to resolve JULES sensitivity test
 
 ## Approach
 
@@ -655,7 +659,7 @@ gg3_gpp_npp <- cowplot::plot_grid(
 
 gg3_gpp_npp
 
-#ggsave(here("fig/dgpp_dnpp_trendy_s1_pooled.pdf"), plot = gg3_gpp_npp, width = 8, height = 4)
+ggsave(here("fig/dgpp_dnpp_trendy_s1_pooled.pdf"), plot = gg3_gpp_npp, width = 8, height = 4)
 ```
 
 #### By model
@@ -699,8 +703,8 @@ gdf_sampled %>%
     strip.text = element_text(size = 12, hjust = 0)
     )
 
-ggsave(here("fig/dnpp_dgpp_trendy_s1_bymodl.pdf"), width = 9, height = 13)
-ggsave(here("fig/dnpp_dgpp_trendy_s1_bymodl.png"), width = 9, height = 13)
+#ggsave(here("fig/dnpp_dgpp_trendy_s1_bymodl.pdf"), width = 9, height = 13)
+#ggsave(here("fig/dnpp_dgpp_trendy_s1_bymodl.png"), width = 9, height = 13)
 
 # we need to get some stat for the overall excel table
 df_quantiles <- gdf_sampled %>%
@@ -737,8 +741,8 @@ gdf_sampled %>%
   ) +
   facet_wrap(. ~ modl, ncol = 3,  scales = "free",labeller = as_labeller(display_titles_with_all))
 
-ggsave(here("fig/hist_dnpp_dgpp_trendy_bymodl.pdf"), width = 9, height = 10.5)
-ggsave(here("fig/hist_dnpp_dgpp_trendy_bymodl.png"), width = 9, height = 10.5)
+#ggsave(here("fig/hist_dnpp_dgpp_trendy_bymodl.pdf"), width = 9, height = 10.5)
+#ggsave(here("fig/hist_dnpp_dgpp_trendy_bymodl.png"), width = 9, height = 10.5)
 ```
 
 
@@ -899,7 +903,7 @@ gg_map_aggSD
 
 ```
 
-#### Publication Fig. 1
+#### Publication Fig. 3
 
 ```{r}
 cowplot::plot_grid(
@@ -1222,7 +1226,7 @@ gg_map_aggSD <- ggplot() +
 gg_map_aggSD
 ```
 
-#### Publication Fig. 3
+#### Publication Fig. 4
 
 ```{r}
 cowplot::plot_grid(
@@ -1531,19 +1535,17 @@ gg_map_aggSD <- ggplot() +
     ylim = c(-60, 85),
     expand = FALSE
   ) +
-  khroma::scale_fill_vik(
-    name = expression(atop('SD of',italic(L)[Cveg:NPP])),
-    limits = c(0, 2),  
-    oob = scales::squish,
-    midpoint = 1,
-    reverse = TRUE
-    ) +
+  khroma::scale_fill_grayC(
+    name = expression(atop("SD of", italic(L)[Cveg^"*":NPP])),
+    limits = c(0, 2),
+    oob = scales::squish
+  ) +
   theme_void()
 
 gg_map_aggSD
 ```
 
-#### Publication Fig. 3
+#### Publication Fig. S22
 
 ```{r}
 cowplot::plot_grid(
@@ -1651,6 +1653,8 @@ model_no <- which(gdf$modl=="JULES")
 model_df <- gdf$data[[model_no]]
 robustbase::colMedians(as.matrix(model_df), na.rm = TRUE)
 sum(!model_df$landCoverFrac==0)
+
+# Note: to run these codes, you will need to rerun codes at line 363 to get dcroot_star
 
 gdf_sampled <- gdf %>%
   unnest(data) %>%
@@ -2048,7 +2052,7 @@ gg_map_aggSD
 
 ```
 
-#### Publication Fig. 4
+#### Publication Fig. 5
 
 ```{r}
 cowplot::plot_grid(
@@ -2145,7 +2149,7 @@ ggsave(here("fig/cwood_cveg_pooled.pdf"), plot = gg3_l_cwood_cveg, width = 8, he
 
 
 #### sensitivity test using JULES only
-
+Huanyuan: the test about JULES is not very sucessful anyway, I think fvegLitter is not a very good variable for this calculation because it includes carbon flux induce by mortality (not associated with Cveg turnover time)
 ```{r cveg_star_croot_bymodl, fig.height=9, out.width="100%"}
 
 set.seed(1982)
@@ -2154,6 +2158,8 @@ model_no <- which(gdf$modl=="JULES")
 model_df <- gdf$data[[model_no]]
 robustbase::colMedians(as.matrix(model_df), na.rm = TRUE)
 sum(!model_df$landCoverFrac==0)
+
+# Note: To run the following codes, you will need to rerun line 363 to get dcwood_star
 
 gdf_sampled <- gdf %>%
   unnest(data) %>%
@@ -2524,7 +2530,9 @@ gg_map_agg <- ggplot() +
   theme_void()
 ```
 
-#### Publication Fig. 4
+#### Overall_figure
+
+Note: we did not use this figure in the paper...
 
 ```{r}
 cowplot::plot_grid(
@@ -3095,6 +3103,17 @@ gg_map_agg <- ggplot() +
     reverse = TRUE
     ) +
   theme_void()
+
+cowplot::plot_grid(
+  gg3_l_cleaf_cveg_star,
+  gg_map_agg, 
+  ncol = 1,
+  labels = c("", "c"),
+  rel_heights = c(1, 0.9)
+)
+
+ggsave(filename = here("fig/combined_cleaf_cveg.pdf"), height = 5, width = 6)
+
 ```
 
 ###  cRoot ratio
@@ -3302,7 +3321,7 @@ ggsave(bymodel_map1,filename = here("fig/RRa_trendyv11_bymodelv1.jpg"),height=10
 
 ```
 
-## Summary table
+## Pub Figure 1
 
 ```{r summary_table, fig.height=9, out.width="80%"}
 
@@ -3597,7 +3616,7 @@ heatmaps <- egg::ggarrange(
   debug = FALSE # Set to TRUE to see the alignment boxes
 )
 
-ggsave(plot = heatmaps,here("fig/summary_tablev2026.pdf"), width = 11.82, height = 9.73)
+#ggsave(plot = heatmaps,here("fig/summary_tablev2026.pdf"), width = 11.82, height = 9.73)
 ```
 
 ## SI data table
