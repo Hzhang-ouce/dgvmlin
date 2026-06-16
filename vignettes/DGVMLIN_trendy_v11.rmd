@@ -2522,12 +2522,15 @@ gg_map_agg <- ggplot() +
   ) +
   khroma::scale_fill_vik(
     name = expression(paste(italic(L)[Cwood:Cveg])),
-    limits = c(0.2, 1.8),  
+    limits = c(0, 2),  
     midpoint = 1,
     oob = scales::squish,
     reverse = TRUE
     ) +
-  theme_void()
+  theme_void()+labs(title='ALL')+
+    theme(
+      plot.title = element_text(hjust = 0.5, size = 10) 
+      )
 ```
 
 #### Overall_figure
@@ -2544,6 +2547,8 @@ cowplot::plot_grid(
 )
 
 ggsave(filename = here("fig/combined_cwood_cveg.pdf"), height = 5, width = 6)
+ggsave(gg_map_agg,filename = here("fig/overallmap_cwood_cveg.jpg"), height = 3, width = 4)
+
 ``` 
 
 ### Croot vs Cveg*
@@ -3097,12 +3102,16 @@ gg_map_agg <- ggplot() +
   ) +
   khroma::scale_fill_vik(
     name = expression(paste(italic(L)[Cleaf:Cveg^"*"])),
-    limits = c(0.2, 1.8),  
+    limits = c(0, 2),  
     midpoint = 1,
     oob = scales::squish,
     reverse = TRUE
     ) +
-  theme_void()
+  theme_void()+
+    labs(
+     title = 'ALL'
+    )+
+  theme( plot.title = element_text(hjust = 0.5, size = 10) )
 
 cowplot::plot_grid(
   gg3_l_cleaf_cveg_star,
@@ -3113,6 +3122,7 @@ cowplot::plot_grid(
 )
 
 ggsave(filename = here("fig/combined_cleaf_cveg.pdf"), height = 5, width = 6)
+ggsave(gg_map_agg,filename = here("fig/Overall_map_cleaf_cveg.jpg"), height = 3, width = 4)
 
 ```
 
