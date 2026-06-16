@@ -1,8 +1,12 @@
+[![DOI](https://zenodo.org/badge/816184268.svg)](https://doi.org/10.5281/zenodo.20720993)
+
 # dgvmlin
 
 **Huanyuan Zhang-Zheng and Beni Stocker 2025/08**
 
 This repo contains code for the analysis, diagnosing linearity of the C cycle dynamics from TRENDY v11 model outputs. Analysis code for analyses with TRENDY v8 are ![here](https://github.com/Hzhang-ouce/DGVM_density_plot)
+
+This repo supports paper published at Global Change Biology, titled 'Diagnosing linearity along the carbon cascade in terrestrial biosphere models and observations'
 
 ## Important note for reproducing figures
 
